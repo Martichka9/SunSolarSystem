@@ -9,7 +9,7 @@ document.getElementsByTagName('body')[0].style.overflow = 'hidden';
 
 //main vars
 var scene = new THREE.Scene();
-var camera = new THREE.PerspectiveCamera( 40, window.innerWidth / window.innerHeight, 1, 10000 );
+var camera = new THREE.PerspectiveCamera( 43, window.innerWidth / window.innerHeight, 1, 10000 );
 camera.position.set(5000,5000,5000);
 camera.aspect = window.innerWidth / window.innerHeight;
 
