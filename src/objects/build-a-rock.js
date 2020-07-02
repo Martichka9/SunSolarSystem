@@ -4,7 +4,7 @@ export function buildARock (size,type,color,cShadow,rShadow,x,y,z){
     geo = new THREE.SphereBufferGeometry(size,32,32);
 
     if(type === 'star'){
-        mater = new THREE.MeshPhysicalMaterial( {color: color, transparent: true, opacity: 0.2} )
+        mater = new THREE.MeshPhysicalMaterial( {color: color, transparent: true, opacity: 0.5} )
     }
     else if(type === 'planet'){
         mater = new THREE.MeshLambertMaterial( {color: color} )
@@ -13,7 +13,7 @@ export function buildARock (size,type,color,cShadow,rShadow,x,y,z){
     rock = new THREE.Mesh(geo,mater);
     rock.castShadow = false;
     rock.receiveShadow = false;
-    rock.position.set(0,0,0);
+    rock.position.set(x,y,z);
 
     return rock;
 }
