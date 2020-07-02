@@ -1,6 +1,6 @@
 //function to build the system elements
-export function buildARock (size,type,color,cShadow,rShadow,x,y,z){
-    let geo, mater, rock; 
+export function buildARock (size,type,color,cShadow,rShadow,x,y,z,haveRings){
+    let geo, mater, rock, rings; 
     geo = new THREE.SphereBufferGeometry(size,32,32);
 
     if(type === 'star'){
@@ -8,12 +8,35 @@ export function buildARock (size,type,color,cShadow,rShadow,x,y,z){
     }
     else if(type === 'planet'){
         mater = new THREE.MeshLambertMaterial( {color: color} )
+        if(haveRings === 1){
+            rings = addRings(size+6,size*2);
+        }
     }
 
     rock = new THREE.Mesh(geo,mater);
-    rock.castShadow = false;
-    rock.receiveShadow = false;
-    rock.position.set(x,y,z);
+    rock.castShadow = cShadow;
+    rock.receiveShadow = rShadow;
 
-    return rock;
+    if(rings != undefined){
+        let planetWithRings = new THREE.Object3D();
+        planetWithRings.add(rock, rings);
+        planetWithRings.position.set(x,y,z);
+        planetWithRings.rotateX(Math.PI/1.69);
+        return planetWithRings;
+    }
+    else {
+        rock.position.set(x,y,z);
+        return rock;
+    }
+}
+
+function addRings (innerR,outerR){
+    let geo, mater, rings; 
+    geo = new THREE.RingBufferGeometry( 100, 200, 30, 30, 0, 6.3);
+    mater = new THREE.MeshBasicMaterial( { color: 0xc1c1c1, side: THREE.DoubleSide } );
+    rings = new THREE.Mesh( geo, mater );
+    rings.castShadow = false;
+    rings.receiveShadow = false;
+
+    return rings;
 }
