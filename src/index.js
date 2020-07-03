@@ -3,6 +3,16 @@ import {sunlight, sun} from './objects/sun.js';
 import * as PLANETS from './objects/planets.js';
 import {OrbitControls} from 'three/examples/jsm/controls/OrbitControls.js';
 
+let planets =  [PLANETS.mercury,
+                PLANETS.venus,
+                PLANETS.earth,
+                PLANETS.mars,
+                PLANETS.jupiter,
+                PLANETS.saturn,
+                PLANETS.uranus,
+                PLANETS.neptune,
+                PLANETS.pluto];
+
 //body and canvas styles set
 document.getElementsByTagName('body')[0].style.margin = 0;
 document.getElementsByTagName('body')[0].style.overflow = 'hidden';
@@ -29,15 +39,8 @@ var controls = new OrbitControls( camera, renderer.domElement );
 scene.add( sunlight );
 
 //planets
-scene.add(PLANETS.mercury,
-          PLANETS.venus,
-          PLANETS.earth,
-          PLANETS.mars,
-          PLANETS.jupiter,
-          PLANETS.saturn,
-          PLANETS.uranus,
-          PLANETS.neptune,
-          PLANETS.pluto);
+planets.forEach((x) => {scene.add(x);});
+// scene.add();
 
 var animate = function () {
     requestAnimationFrame( animate );
