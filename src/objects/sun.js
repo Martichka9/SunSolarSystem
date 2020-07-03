@@ -20,13 +20,13 @@ function addLight( h, s, l, x, y, z ) {
     lensflare.addElement( new LensflareElement( textureFlare3, 800, 0.6 ) );
     lensflare.addElement( new LensflareElement( textureFlare3, 1190, 0.7 ) );
     lensflare.addElement( new LensflareElement( textureFlare3, 600, 0.9 ) );
-    lensflare.addElement( new LensflareElement( textureFlare3, 300, 1 ) );
+    lensflare.addElement( new LensflareElement( textureFlare3, 300, 1 , ) );
     light.add( lensflare );
 
     return light;
 }
 
-var sunlight = addLight( 0.08, 0.8, 0.5, 0, 0, 0 );
+var sunlight = addLight( 1, 1, 1, 0, 0, 0 );
 
 //sun
 var sun = buildARock(1090,'star','0xffae42',false,false,0,0,0);
