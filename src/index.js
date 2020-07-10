@@ -2,16 +2,33 @@ import * as THREE from 'three';
 import {sunlight, sun} from './objects/sun.js';
 import * as PLANETS from './objects/planets.js';
 import {OrbitControls} from 'three/examples/jsm/controls/OrbitControls.js';
+import { Plane } from 'three';
 
-let planets =  [PLANETS.mercury,
-                PLANETS.venus,
-                PLANETS.earth,
-                PLANETS.mars,
-                PLANETS.jupiter,
-                PLANETS.saturn,
-                PLANETS.uranus,
-                PLANETS.neptune,
-                PLANETS.pluto];
+let planets = [
+    PLANETS.mercury,
+    PLANETS.venus,
+    PLANETS.earth,
+    PLANETS.mars,
+    PLANETS.jupiter,
+    PLANETS.saturn,
+    PLANETS.uranus,
+    PLANETS.neptune,
+    PLANETS.pluto
+];
+
+//real speed in days devided as folows "((speed / 100) / 2) / 100"
+//
+let planetarDay = [
+    0.02930,
+    -0.12150,
+    0.00050,
+    0.00052,
+    0.2070,
+    0.2130,
+    -0.3590,
+    0.3355,
+    -0.0033
+];
 
 //body and canvas styles set
 document.getElementsByTagName('body')[0].style.margin = 0;
@@ -20,7 +37,7 @@ document.getElementsByTagName('body')[0].style.overflow = 'hidden';
 //main vars
 var scene = new THREE.Scene();
 var camera = new THREE.PerspectiveCamera( 43, window.innerWidth / window.innerHeight, 1, 10000 );
-camera.position.set(5000,5000,5000);
+camera.position.set(1090,1000,5000);
 camera.aspect = window.innerWidth / window.innerHeight;
 
 var light = new THREE.AmbientLight( 0x909009 ); // soft white light
@@ -56,7 +73,10 @@ planets.forEach((x) => {scene.add(x);});
 var animate = function () {
     requestAnimationFrame( animate );
 
-    PLANETS.earth.rotation.set(0.001,0.01,0.1);
+    for (let i = 0; i < planets.length; i++) {
+        planets[i].rotation.y += planetarDay[i];        
+    }
+
     controls.update();
     renderer.render( scene, camera );
 };

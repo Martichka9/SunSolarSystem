@@ -19,7 +19,6 @@ export function buildARock (size, type, color, cShadow, rShadow, x, y, z, textur
     rock = new THREE.Mesh(geo,mater);
     rock.castShadow = cShadow;
     rock.receiveShadow = rShadow;
-    rock.rotateX(tilt);
 
     //double check if degrees are correct
     //console.log("planet angle in deg: ",THREE.Math.radToDeg(rock.rotation.x)%360);
@@ -28,17 +27,19 @@ export function buildARock (size, type, color, cShadow, rShadow, x, y, z, textur
         let planetWithRings = new THREE.Object3D();
         planetWithRings.add(rock, rings);
         planetWithRings.position.set(x,y,z);
+        planetWithRings.rotateX(tilt);
         return planetWithRings;
     }
     else {
         rock.position.set(x,y,z);
+        rock.rotateX(tilt);
         return rock;
     }
 }
 
 
 //create rings
-function addRings (innerR,outerR, tilt){
+function addRings (innerR,outerR){
     let geo, mater, rings; 
     geo = new THREE.RingBufferGeometry( innerR, outerR, 30, 30, 0, 6.3);
     let ringMap = new THREE.TextureLoader().load(sRings);
@@ -46,7 +47,7 @@ function addRings (innerR,outerR, tilt){
     rings = new THREE.Mesh( geo, mater );
     rings.castShadow = false;
     rings.receiveShadow = false;
-    rings.rotateX(Math.PI/tilt);
+    rings.rotateX(Math.PI/1.9955);
 
     return rings;
 }
