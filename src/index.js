@@ -1,7 +1,7 @@
 import * as THREE from 'three';
 import {sunlight, sun} from './objects/sun.js';
 import {planets, planetarDay} from './objects/planets.js';
-import {orbits} from './objects/orbits.js';
+import {orbits, orbitalPeriods} from './objects/orbits.js';
 import {OrbitControls} from 'three/examples/jsm/controls/OrbitControls.js';
 import { Plane } from 'three';
 
@@ -52,8 +52,10 @@ var animate = function () {
     });
 
     orbits.forEach((planet,index) => {
-        planet.rotation.y += index*0.003;
+        planet.rotation.y += orbitalPeriods[index];
     });
+
+    // orbits[2].rotation.y += 0.001;
 
     controls.update();
     renderer.render( scene, camera );

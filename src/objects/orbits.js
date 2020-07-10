@@ -22,17 +22,19 @@ let uranusOrbit = new THREE.Object3D().add(PLANETS.uranus);
 let neptuneOrbit = new THREE.Object3D().add(PLANETS.neptune);
 let plutoOrbit = new THREE.Object3D().add(PLANETS.pluto);
 
+let orbitalPeriods = [
+    0.0414937759,//mercury
+    0.0153609831,//venus
+    0.0100000000,//earth
+    0.0053191489,//mars
+   0.000843170,//jupiter
+   0.000339443,//saturn
+   0.000119033,//uranus
+   0.000060683,//neptune
+   0.000040241//pluto
+];
 
-// mercuryOrbit.add(PLANETS.mercury);
-// venusOrbit.add(PLANETS.venus);
-// earthOrbit.add(PLANETS.earth);
-// marsOrbit.add(PLANETS.mars);
-// jupiterOrbit.add(PLANETS.jupiter);
-// saturnOrbit.add(PLANETS.saturn);
-// uranusOrbit.add(PLANETS.uranus);
-// neptuneOrbit.add(PLANETS.neptune);
-// plutoOrbit.add(PLANETS.pluto);
 
 let orbits = [mercuryOrbit, venusOrbit, earthOrbit, marsOrbit, jupiterOrbit, saturnOrbit, uranusOrbit, neptuneOrbit, plutoOrbit];
 
-export {orbits}
+export {orbits, orbitalPeriods}
