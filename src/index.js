@@ -43,7 +43,7 @@ camera.aspect = window.innerWidth / window.innerHeight;
 var light = new THREE.AmbientLight( 0x909009 ); // soft white light
 scene.add( light );
 
-var renderer = new THREE.WebGLRenderer();
+var renderer = new THREE.WebGLRenderer({antialias: true});
 renderer.setSize( window.innerWidth, window.innerHeight );
 document.body.appendChild( renderer.domElement );
 
