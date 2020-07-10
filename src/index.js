@@ -1,34 +1,9 @@
 import * as THREE from 'three';
 import {sunlight, sun} from './objects/sun.js';
-import * as PLANETS from './objects/planets.js';
+import {planets, planetarDay} from './objects/planets.js';
+import {orbits} from './objects/orbits.js';
 import {OrbitControls} from 'three/examples/jsm/controls/OrbitControls.js';
 import { Plane } from 'three';
-
-let planets = [
-    PLANETS.mercury,
-    PLANETS.venus,
-    PLANETS.earth,
-    PLANETS.mars,
-    PLANETS.jupiter,
-    PLANETS.saturn,
-    PLANETS.uranus,
-    PLANETS.neptune,
-    PLANETS.pluto
-];
-
-//real speed in days devided as folows "((speed / 100) / 2) / 100"
-//
-let planetarDay = [
-    0.02930,
-    -0.12150,
-    0.00050,
-    0.00052,
-    0.2070,
-    0.2130,
-    -0.3590,
-    0.3355,
-    -0.0033
-];
 
 //body and canvas styles set
 document.getElementsByTagName('body')[0].style.margin = 0;
@@ -56,8 +31,7 @@ var controls = new OrbitControls( camera, renderer.domElement );
 scene.add( sunlight );
 
 //planets
-planets.forEach((x) => {scene.add(x);});
-// scene.add();
+orbits.forEach((x) => {scene.add(x);});
 
 //Get planets tilt in radians for the rotation function
 // console.log("Меркурий", THREE.Math.degToRad(0.01));//0.00017453292519943296
@@ -73,9 +47,13 @@ planets.forEach((x) => {scene.add(x);});
 var animate = function () {
     requestAnimationFrame( animate );
 
-    for (let i = 0; i < planets.length; i++) {
-        planets[i].rotation.y += planetarDay[i];        
-    }
+    planets.forEach((planet,index) => {
+        planet.rotation.y += planetarDay[index];
+    });
+
+    orbits.forEach((planet,index) => {
+        planet.rotation.y += index*0.003;
+    });
 
     controls.update();
     renderer.render( scene, camera );
