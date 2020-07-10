@@ -42,6 +42,17 @@ scene.add( sunlight );
 planets.forEach((x) => {scene.add(x);});
 // scene.add();
 
+//Get planets tilt in radians for the rotation function
+// console.log("Меркурий", THREE.Math.degToRad(0.01));//0.00017453292519943296
+// console.log("Венера", THREE.Math.degToRad(2.64));//0.0460766922526503
+// console.log("Земя", THREE.Math.degToRad(23.44));//0.40910517666747087
+// console.log("Марс", THREE.Math.degToRad(25.19));//0.4396484385773716
+// console.log("Юпитер", THREE.Math.degToRad(3.13));//0.054628805587422516
+// console.log("Сатурн", THREE.Math.degToRad(26.73));//0.4665265090580843
+// console.log("Уран", THREE.Math.degToRad(97.77));//1.706408409674856
+// console.log("Нептун", THREE.Math.degToRad(28.39));//0.4954989746411902
+// console.log("Плутон", THREE.Math.degToRad(119.61));//2.0875883183104174
+
 var animate = function () {
     requestAnimationFrame( animate );
 
