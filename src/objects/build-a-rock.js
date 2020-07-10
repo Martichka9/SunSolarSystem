@@ -4,7 +4,7 @@ import { TextureLoader } from 'three';
 //function to build the system sun and planets
 export function buildARock (size, type, color, cShadow, rShadow, x, y, z, texture, tilt, haveRings, innerR, outerR, tiltR){
     let geo, mater, rock, rings; 
-    geo = new THREE.SphereBufferGeometry(size,32,32);
+    geo = new THREE.SphereBufferGeometry(size,100,100);
 
     if(type === 'star'){
         mater = addTexture(texture);
@@ -41,7 +41,7 @@ export function buildARock (size, type, color, cShadow, rShadow, x, y, z, textur
 //create rings
 function addRings (innerR,outerR){
     let geo, mater, rings; 
-    geo = new THREE.RingBufferGeometry( innerR, outerR, 30, 30, 0, 6.3);
+    geo = new THREE.RingBufferGeometry( innerR, outerR, 100, 100, 0, 6.3);
     let ringMap = new THREE.TextureLoader().load(sRings);
     mater = new THREE.MeshPhysicalMaterial( { map: ringMap, side: THREE.DoubleSide, transparent: true, opacity:0.8} );
     rings = new THREE.Mesh( geo, mater );
