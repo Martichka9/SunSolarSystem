@@ -40,7 +40,7 @@ document.body.appendChild( renderer.domElement );
 
 // let axesHelper = new THREE.AxesHelper( 6000 );
 // scene.add( axesHelper );
-let controls = new OrbitControls( camera, renderer.domElement );
+// let controls = new OrbitControls( camera, renderer.domElement );
 
 //sun
 scene.add(sun);
@@ -71,7 +71,7 @@ let animate = function () {
         planet.rotation.y += orbitalPeriods[index];
     });
 
-    controls.update();
+    // controls.update();
     scene.updateMatrixWorld(); //Update world positions, so when planet is zoomed it will be centered
     //zoom to the Earth
     MOVECAM.lookAtPlanet(planets[2],camera);
