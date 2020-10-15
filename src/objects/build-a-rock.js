@@ -1,5 +1,4 @@
 import sRings from '../imgs/552-5527537_-mr2.png';
-import { TextureLoader } from 'three';
 
 //function to build the system sun and planets
 export function buildARock (size, type, color, cShadow, rShadow, x, y, z, texture, tilt, haveRings, innerR, outerR, tiltR){
@@ -54,8 +53,8 @@ function addRings (innerR,outerR){
 
 //textures
 function addTexture(imgPath){
-    var img = new THREE.TextureLoader().load(imgPath);
-    var texturedMater = new THREE.MeshLambertMaterial( { map: img } );
+    let img = new THREE.TextureLoader().load(imgPath);
+    let texturedMater = new THREE.MeshLambertMaterial( { map: img } );
 
     return texturedMater;
 }

@@ -27,13 +27,12 @@ let orbitalPeriods = [
     0.0153609831,//venus
     0.0100000000,//earth
     0.0053191489,//mars
-   0.000843170,//jupiter
-   0.000339443,//saturn
-   0.000119033,//uranus
-   0.000060683,//neptune
-   0.000040241//pluto
+    0.000843170,//jupiter
+    0.000339443,//saturn
+    0.000119033,//uranus
+    0.000060683,//neptune
+    0.000040241//pluto
 ];
-
 
 let orbits = [mercuryOrbit, venusOrbit, earthOrbit, marsOrbit, jupiterOrbit, saturnOrbit, uranusOrbit, neptuneOrbit, plutoOrbit];
 
