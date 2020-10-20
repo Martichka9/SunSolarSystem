@@ -7,6 +7,11 @@ import * as MOVECAM from './cam-movement.js';
 import './imgs/mkw.png';
 import './imgs/stars-center.png';
 import './imgs/8k_stars_milky_way.jpg';
+import {updateSize} from './temp-fn.js';
+
+const planetNames = ["Mercury", "Venus", "Earth", "Mars", "Jupiter", "Saturn", "Uranus", "Neptune", "Pluto"];
+let targetPlanet = 6;
+let rotateCamera = false;
 
 //body and canvas styles set
 document.getElementsByTagName('body')[0].style.margin = 0;
@@ -31,10 +36,8 @@ camera.aspect = window.innerWidth / window.innerHeight;
 //grouping camera with the planet that it will track
 let camObj = new THREE.Object3D();
 camObj.add(camera);
-orbits[2].add(camObj);
-
-//acceleration for z axis
-let accelerationAfter = 5000;
+orbits[targetPlanet].add(camObj);
+let size = updateSize(targetPlanet);
 
 let light = new THREE.AmbientLight( 0x909009 ); // soft white light
 scene.add( light );
@@ -42,6 +45,19 @@ scene.add( light );
 let renderer = new THREE.WebGLRenderer({antialias: true});
 renderer.setSize( window.innerWidth, window.innerHeight );
 document.body.appendChild( renderer.domElement );
+
+//planets menu
+let menu = document.createElement("div");
+menu.style.position="absolute";
+menu.style.bottom="0";
+menu.style.right="0";
+menu.style.textAlign="center";
+
+planets.forEach((planet,index) => {
+    menu.appendChild(makeALink(index,planetNames[index],camera));
+});
+
+document.body.appendChild(menu);
 
 // let axesHelper = new THREE.AxesHelper( 6000 );
 // scene.add( axesHelper );
@@ -66,12 +82,6 @@ orbits.forEach((x) => {scene.add(x);});
 // console.log("Нептун", THREE.Math.degToRad(28.39));//0.4954989746411902
 // console.log("Плутон", THREE.Math.degToRad(119.61));//2.0875883183104174
 
-//get planet size for proper zoom in
-let boundingBox = new THREE.Box3().setFromObject(planets[2]);
-let size = boundingBox.getSize(); // Returns Vector3
-console.log((Math.round(size.x)%10)*10);
-
-
 let animate = function () {
     requestAnimationFrame( animate );
 
@@ -85,11 +95,41 @@ let animate = function () {
 
     //controls.update();
     scene.updateMatrixWorld(); //Update world positions, so when planet is zoomed it will be centered
-    //zoom to the Earth
-    MOVECAM.lookAtPlanet(planets[2],camera,Math.floor(size.z),2);
+    //zoom to the target planet
+    MOVECAM.lookAtPlanet(planets[targetPlanet],camera,Math.floor(size.z),targetPlanet,rotateCamera);
     scene.updateWorldMatrix();
     renderer.render( scene, camera );
 };
 
 animate();
 
+
+function makeALink(id,name,camera){
+    // console.log("check id ",id);
+    let link = document.createElement("a");
+    let linkTxt = document.createTextNode(name);
+    link.id=id;
+    link.style.position="relative";
+    link.style.display="block";
+    link.style.width="100px";
+    link.style.height="24px";
+    link.style.color="#fff";
+    link.style.cursor="pointer";
+
+    link.onclick = function() {
+        size = updateSize(id);
+        rotateCamera = MOVECAM.camSetMoveBack(camera);
+        MOVECAM.lookAtPlanet(planets[id],camera,Math.floor(size.z),id,MOVECAM.camSetMoveBack(camera));
+        orbits[targetPlanet].remove(camObj);
+        updateTarget(id);
+    };
+    
+    link.appendChild(linkTxt);
+
+    return link;
+}
+
+function updateTarget(id){
+    targetPlanet = id;
+    orbits[targetPlanet].add(camObj);
+}
