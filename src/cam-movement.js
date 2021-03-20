@@ -54,7 +54,7 @@ function zoomCam2(camera,planet,size){
     accelerationAfter = camera.position.z - planet.position.z;
     if (accelerationAfter < 0) {accelerationAfter *= -1;}
    
-    //acceleration for z axis
+    //set speed depending on distance
     if (accelerationAfter > 4000) {zSpeed = 10.0;}
     else if (accelerationAfter > 3000) {zSpeed = 9.0;}
     else if (accelerationAfter > 2000) {zSpeed = 6.0;}
