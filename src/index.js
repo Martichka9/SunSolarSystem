@@ -113,7 +113,6 @@ animate();
 
 
 function makeALink(id,name,camera){
-    // console.log("check id ",id);
     let link = document.createElement("a");
     let linkTxt = document.createTextNode(name);
     link.id=id;
@@ -126,12 +125,13 @@ function makeALink(id,name,camera){
 
     link.onclick = function() {
         if (current != id) {
+            let camZPos = camera.position.z;
+            let planetZPos = planets[id].position.z;
             current = id;
-            //rotateCamera = MOVECAM.camSetMoveBack(camera);
-            MOVECAM.lookAtPlanet(planets[id],camera,Math.floor(size.z),id,MOVECAM.camSetMoveBack(camera));
-            size = updateSize(id);
-            orbits[targetPlanet].remove(camObj);
             updateTarget(id);
+            size = updateSize(id);
+            MOVECAM.lookAtPlanet(planets[id],camera,Math.floor(size.z),id,true);
+            // console.log(id, planet);
         }       
     };
     
