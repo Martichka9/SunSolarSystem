@@ -12,8 +12,8 @@ let zoomAccelerations = [
 
 let currentCam, targetXY, targetZ, planetPos, quaternion, zSpeed;
 let move = new THREE.Vector3();
-let backX = 100;
-let backY = 100;
+let backX = 300;
+let backY = 300;
 
 function lookAtPlanet(planet, camera, size, index, rotateCamera){
     // console.log("check planet ",index);
@@ -30,9 +30,9 @@ function lookAtPlanet(planet, camera, size, index, rotateCamera){
 
 function camMoveBack(camera,backX,backY, planet, size, index) {
     if(camera.position.x != backX || camera.position.y != backY){
-        move.x = camera.position.x < 0 ? camera.position.x-1.0 : camera.position.x +1.0;
-        move.y = camera.position.y < 0 ? camera.position.y-1.0 : camera.position.y +1.0;
-        move.z = camera.position.z > 0 ? camera.position.z + 10.0 : camera.position.z - 10.0;
+        move.x = camera.position.x < 0 ? camera.position.x - 1.0 : camera.position.x + 1.0;
+        move.y = camera.position.y < 0 ? camera.position.y - 1.0 : camera.position.y + 1.0;
+        move.z = camera.position.z > 0 ? camera.position.z - 10.0 : camera.position.z + 10.0;
 
         camera.position.set(move.x, move.y, move.z);
     }
@@ -44,10 +44,10 @@ function camMoveBack(camera,backX,backY, planet, size, index) {
 function updateLookAt(camera,planet){
     planetPos = new THREE.Vector3();
     planetPos.setFromMatrixPosition( planet.matrixWorld); //get planet's position
-    quaternion = new THREE.Quaternion(planetPos.x, planetPos.y, planetPos.z, 1);//pass position to quaternion
+    quaternion = new THREE.Quaternion(planetPos.x, planetPos.y, planetPos.z, 1); //pass position to quaternion
     camera.applyQuaternion(quaternion); // Apply Quaternion
     camera.quaternion.normalize();
-    camera.lookAt(planetPos);//Look at object
+    camera.lookAt(planetPos); //Look at object
     camera.updateProjectionMatrix();
     // camera.updateWorldMatrix();
 }
@@ -56,9 +56,9 @@ function zoomCam2(camera,planet,size,accelerationAfter){
     currentCam = camera.position;
     targetXY = 15;
     targetZ = planet.position.z-size;
-    move.x=currentCam.x;
-    move.y=currentCam.y;
-    move.z=currentCam.z;
+    move.x = currentCam.x;
+    move.y = currentCam.y;
+    move.z = currentCam.z;
     
     //acceleration for z axis
     switch(accelerationAfter){
