@@ -12,6 +12,7 @@ import {updateSize} from './temp-fn.js';
 const planetNames = ["Mercury", "Venus", "Earth", "Mars", "Jupiter", "Saturn", "Uranus", "Neptune", "Pluto"];
 let targetPlanet = 6;
 let rotateCamera = false;
+let current = -1;
 
 //body and canvas styles set
 document.getElementsByTagName('body')[0].style.margin = 0;
@@ -82,10 +83,16 @@ orbits.forEach((x) => {scene.add(x);});
 // console.log("Нептун", THREE.Math.degToRad(28.39));//0.4954989746411902
 // console.log("Плутон", THREE.Math.degToRad(119.61));//2.0875883183104174
 
+function onResize(){
+    cam.aspect = window.innerWidth / window.innerHeight;
+    cam.updateProjectionMatrix();
+    renderer.setSize( window.innerWidth, window.innerHeight );
+}
+
 let animate = function () {
     requestAnimationFrame( animate );
 
-    //rotations of planets
+    //rotationSs of planets
     planets.forEach((planet,index) => {
         planet.rotation.y += planetarDay[index];
     });
@@ -93,6 +100,7 @@ let animate = function () {
         planet.rotation.y += orbitalPeriods[index];
     });
 
+    window.addEventListener('resize', onResize, false);
     //controls.update();
     scene.updateMatrixWorld(); //Update world positions, so when planet is zoomed it will be centered
     //zoom to the target planet
@@ -105,7 +113,6 @@ animate();
 
 
 function makeALink(id,name,camera){
-    // console.log("check id ",id);
     let link = document.createElement("a");
     let linkTxt = document.createTextNode(name);
     link.id=id;
@@ -117,19 +124,23 @@ function makeALink(id,name,camera){
     link.style.cursor="pointer";
 
     link.onclick = function() {
-        size = updateSize(id);
-        rotateCamera = MOVECAM.camSetMoveBack(camera);
-        MOVECAM.lookAtPlanet(planets[id],camera,Math.floor(size.z),id,MOVECAM.camSetMoveBack(camera));
-        orbits[targetPlanet].remove(camObj);
-        updateTarget(id);
+        if (current != id) {
+            let camZPos = camera.position.z;
+            let planetZPos = planets[id].position.z;
+            current = id;
+            updateTarget(id);
+            size = updateSize(id);
+            MOVECAM.lookAtPlanet(planets[id],camera,Math.floor(size.z),id,true);
+            // console.log(id, planet);
+        }       
     };
     
     link.appendChild(linkTxt);
-
     return link;
 }
 
 function updateTarget(id){
+    orbits[targetPlanet].remove(camObj);
     targetPlanet = id;
     orbits[targetPlanet].add(camObj);
 }
