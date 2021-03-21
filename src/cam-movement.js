@@ -41,10 +41,15 @@ function updateLookAt(camera,planet){
     camera.updateProjectionMatrix();
     // camera.updateWorldMatrix();
 }
-
+// 5 12 15 7 143 303 
 function zoomCam2(camera,planet,size){
+    if (planet.children.length == 0){
+        targetXY= planet.geometry.parameters.radius * 2;
+    }
+    else {
+        targetXY= planet.children[0].geometry.parameters.radius * 2;
+    }
     currentCam = camera.position;
-    targetXY = 35;
     targetZ = planet.position.z-size;
     move.x = currentCam.x;
     move.y = currentCam.y;
