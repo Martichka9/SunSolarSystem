@@ -41,13 +41,15 @@ function updateLookAt(camera,planet){
     camera.updateProjectionMatrix();
     // camera.updateWorldMatrix();
 }
-// 5 12 15 7 143 303 
+
 function zoomCam2(camera,planet,size){
+    //set targeted closest position of camera according to the planet's mesh size
     if (planet.children.length == 0){
-        targetXY= planet.geometry.parameters.radius * 2;
+        //round before multiply to escape planets with floating point sizes oscillation
+        targetXY= Math.round(planet.geometry.parameters.radius) * 2;
     }
     else {
-        targetXY= planet.children[0].geometry.parameters.radius * 2;
+        targetXY= Math.round(planet.children[0].geometry.parameters.radius) * 2;
     }
     currentCam = camera.position;
     targetZ = planet.position.z-size;
@@ -65,9 +67,9 @@ function zoomCam2(camera,planet,size){
     else if (accelerationAfter > 2000) {zSpeed = 6.0;}
     else if (accelerationAfter > 1000) {zSpeed = 5.0;}
     else if (accelerationAfter > 500) {zSpeed = 3.0;}
-    else{zSpeed = 1.0;console.log("acc",accelerationAfter);}
+    else{zSpeed = 1.0;}
 
-    //update camera position with corresponding speed
+    //update camera movement with corresponding speed
     if((Math.floor(currentCam.x) != targetXY
     || Math.floor(currentCam.y) != targetXY
     || Math.floor(currentCam.z) != targetZ)){
@@ -76,14 +78,14 @@ function zoomCam2(camera,planet,size){
         if (Math.floor(currentCam.y) < targetXY){move.y = Math.floor(currentCam.y+1.0)*1.0;}
         else if(Math.floor(currentCam.y) > targetXY){move.y = Math.floor(currentCam.y-1.0)*1.0;}
         if (Math.floor(currentCam.z) < targetZ){move.z = Math.floor(currentCam.z+zSpeed)*1.0;}
-        else if(Math.floor(currentCam.z) > targetZ){move.z = Math.floor(currentCam.z-zSpeed)*1.0;} 
+        else if(Math.floor(currentCam.z) > targetZ){move.z = Math.floor(currentCam.z-zSpeed)*1.0; 
         
         camera.position.set(move.x,move.y,move.z); 
     }
     else {
         //debug
-        // console.log("on target reached",targetZ);
-        // console.log("cam", camera.position.z);
+        //console.log("on target reached",targetZ);
+        //console.log("cam", camera.position.z);
     }
 }
 
