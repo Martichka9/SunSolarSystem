@@ -78,7 +78,7 @@ function zoomCam2(camera,planet,size){
         if (Math.floor(currentCam.y) < targetXY){move.y = Math.floor(currentCam.y+1.0)*1.0;}
         else if(Math.floor(currentCam.y) > targetXY){move.y = Math.floor(currentCam.y-1.0)*1.0;}
         if (Math.floor(currentCam.z) < targetZ){move.z = Math.floor(currentCam.z+zSpeed)*1.0;}
-        else if(Math.floor(currentCam.z) > targetZ){move.z = Math.floor(currentCam.z-zSpeed)*1.0; 
+        else if(Math.floor(currentCam.z) > targetZ){move.z = Math.floor(currentCam.z-zSpeed)*1.0;} 
         
         camera.position.set(move.x,move.y,move.z); 
     }
